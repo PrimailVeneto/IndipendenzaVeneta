@@ -251,18 +251,24 @@
             playAudio();
         };
 
-        const playAudio = () => {
-            if (audioEnabled) {
-                audios.forEach((audio, i) => {
-                    if (i === currentIndex) {
-                        audio.play().catch(error => alert('Audio playback failed:' + error)); /* Modifica: Aggiunto alert in caso di errore */
-                    } else {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                });
-            }
-        };
+		const playAudio = () => {
+			if (audioEnabled) {
+				audios.forEach((audio, i) => {
+					if (i === currentIndex) {
+						audio.play()
+							.catch(error => console.error('Errore nella riproduzione audio:', error)); /* Aggiunto alert in caso di errore */
+
+						// l'audio è ripristinato dopo la fine della riproduzione
+						audio.onended = () => {
+							audio.currentTime = 0; // Reset audio
+						};
+					} else {
+						audio.pause();
+						audio.currentTime = 0;
+					}
+				});
+			}
+		};
 
         audioToggle.addEventListener('click', () => {
             audioEnabled = !audioEnabled;
