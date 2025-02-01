@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            margin: 0;
+            flex-direction: column;
+        }
+        #coverImage {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        video {
+            max-width: 100%;
+            height: auto;
+            display: none; /* Nascondi il video inizialmente */
+        }
+    </style>
+</head>
+<body>
+
+    <img id="coverImage" src="cover_image.jpg" alt="Clicca per avviare il video">
+    <video id="myVideo" controls>
+        <source src="video.mp4" type="video/mp4">
+        Il tuo browser non supporta il tag video.
+    </video>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const video = document.getElementById("myVideo");
+            const coverImage = document.getElementById("coverImage");
+
+            coverImage.addEventListener("click", function () {
+                coverImage.style.display = 'none'; // Nascondi l'immagine di copertura
+                video.style.display = 'block'; // Mostra il video
+                video.muted = false; // Riattiva l'audio
+                video.play(); // Avvia il video
+            });
+        });
+    </script>
+
+</body>
+</html>
